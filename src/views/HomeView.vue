@@ -20,8 +20,11 @@ function validateEmail(email) {
   }
 }
 
-function sendEmail(email) {
-  console.log(email);
+async function sendEmail(email) {
+  let response = await fetch(
+    "https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits"
+  );
+  console.log(response);
   validateEmail((inputText.value = ""));
 }
 </script>
