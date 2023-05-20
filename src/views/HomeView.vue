@@ -1,4 +1,29 @@
 <script setup>
+import { ref } from "vue";
+
+const REGEXP =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+let inputText = ref("");
+let inputClass = ref("");
+let isEmailValid = false;
+
+function validateEmail(email) {
+  if (!!email.match(REGEXP)) {
+    inputClass.value = "email-valid";
+    isEmailValid = true;
+  } else if (email == "") {
+    inputClass.value = "";
+    isEmailValid = false;
+  } else {
+    inputClass.value = "email-invalid";
+    isEmailValid = false;
+  }
+}
+
+function sendEmail(email) {
+  console.log(email);
+  validateEmail((inputText.value = ""));
+}
 </script>
 
 <template>
@@ -37,7 +62,22 @@
     </section>
     <section class="lowpart">
       <div class="lowpart__plug"></div>
-      <div class="lowpart__form">FORM</div>
+      <form
+        :class="`lowpart__form ${inputClass}`"
+        @submit.prevent="sendEmail(inputText)"
+      >
+        <input
+          v-model="inputText"
+          placeholder="Enter your Email and get notified"
+          @input="validateEmail(inputText)"
+        />
+        <button
+          class="lowpart__form-btn"
+          :disabled="isEmailValid ? false : true"
+        >
+          <div class="arrow-base"></div>
+        </button>
+      </form>
       <router-link class="lowpart__link" to="/events">
         <span>Other events</span>
         <div class="arrow-class"></div>
@@ -141,13 +181,51 @@ h1 {
 
   &__form {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
     width: 20rem;
     height: 3rem;
+    padding: 0 0.5rem;
     background-color: white;
     border: solid $main-blue 3px;
     border-radius: 30px;
+
+    & input {
+      padding-left: 0.5rem;
+      font-size: 18px;
+      width: 18rem;
+      outline: none;
+
+      &:invalid {
+        background-color: rgba(255, 0, 0, 0.205);
+      }
+    }
+
+    &-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 2rem;
+      width: 2rem;
+      background-color: #df2224;
+      border-radius: 50%;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: gray;
+        cursor: default;
+      }
+    }
+  }
+}
+
+.email {
+  &-valid {
+    background-color: rgba(125, 255, 125, 0.877);
+  }
+  &-invalid {
+    background-color: rgb(255, 159, 159);
   }
 }
 </style>
