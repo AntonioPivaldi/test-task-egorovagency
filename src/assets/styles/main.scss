@@ -8,6 +8,25 @@
   text-decoration: none;
 }
 
+.button-blue {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 3.75rem;
+  width: 15rem;
+  font-size: 18px;
+  margin-top: 0.75rem;
+  background-color: $main-blue;
+  color: white;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .arrow-base {
   position: relative;
   width: 1rem;
@@ -31,5 +50,25 @@
     @extend .arrow-base, ::before;
     transform: rotate(-45deg);
     top: 3px;
+  }
+}
+
+.cross-base {
+  position: relative;
+  top: 25%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 2rem;
+    height: 2px;
+    top: 25%;
+    background-color: rgba(22, 44, 78, 0.6);
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    @extend .cross-base, ::before;
+    transform: rotate(-45deg);
   }
 }

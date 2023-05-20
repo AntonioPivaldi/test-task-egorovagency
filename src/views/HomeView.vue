@@ -1,10 +1,17 @@
 <script setup>
+import emailjs from "@emailjs/browser";
 import { ref } from "vue";
 
+const PUBLIC_KEY = "revPUMKz0DrbNJoeS";
+const SERVICE_ID = "service_kpc73ur";
+const TEMPLATE_ID = "contact_form";
 const REGEXP =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 let inputText = ref("");
 let inputClass = ref("");
+let isSuccess = ref(false);
+let isPopupShown = ref(false);
 let isEmailValid = false;
 
 function validateEmail(email) {
@@ -21,16 +28,48 @@ function validateEmail(email) {
 }
 
 async function sendEmail(email) {
-  let response = await fetch(
-    "https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits"
+  let templateParams = {
+    message: email,
+  };
+  emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY).then(
+    function (response) {
+      isSuccess.value = true;
+      isPopupShown.value = true;
+    },
+    function (error) {
+      isSuccess.value = false;
+      isPopupShown.value = true;
+    }
   );
-  console.log(response);
   validateEmail((inputText.value = ""));
 }
 </script>
 
 <template>
   <main>
+    <section
+      :class="`popup ${isPopupShown ? '' : 'hidden'}`"
+      @click="isPopupShown = false"
+    >
+      <div class="popup__window">
+        <div class="popup__window-cross">
+          <div class="cross-base"></div>
+        </div>
+        <div class="popup__window-header">
+          <h2 v-if="isSuccess">SUCCESS!</h2>
+          <h2 v-else>FAILED...</h2>
+        </div>
+        <div class="popup__window-text">
+          <p v-if="isSuccess">
+            You have successfully subscribed to the email newsletter!
+          </p>
+          <p v-else>Something went wrong. Please, try again later.</p>
+        </div>
+        <button class="popup__window-btn" @click="isPopupShown = false">
+          Close
+        </button>
+      </div>
+    </section>
     <section class="decorations">
       <div class="decorations__left">
         <img src="../assets/img/deco-left.png" alt="decoration" />
@@ -82,8 +121,8 @@ async function sendEmail(email) {
         </button>
       </form>
       <router-link class="lowpart__link" to="/events">
-        <span>Other events</span>
-        <div class="arrow-class"></div>
+        <p class="lowpart__link-text">Other events</p>
+        <div class="arrow-base lowpart__link-arrow"></div>
       </router-link>
     </section>
   </main>
@@ -103,6 +142,59 @@ h1 {
   font-weight: 600;
   color: $main-blue;
   opacity: 0.39;
+}
+
+.popup {
+  visibility: visible;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  min-height: 100%;
+  background-color: rgba(22, 44, 78, 0.6);
+  transition: 0.3s;
+
+  &__window {
+    display: flex;
+    flex-direction: column;
+    height: 23rem;
+    width: 20rem;
+    background-color: white;
+    border-radius: 2px;
+
+    &-cross {
+      display: flex;
+      align-self: end;
+      width: 2rem;
+      height: 2rem;
+      margin: 1.5rem 1rem 0 0;
+      cursor: pointer;
+    }
+
+    &-header {
+      font-size: 2rem;
+      color: $main-blue;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    &-text {
+      font-size: 1.25rem;
+      text-align: center;
+      margin-top: 2rem;
+      padding: 0 1rem;
+    }
+
+    &-btn {
+      @extend .button-blue;
+      align-self: center;
+      margin-top: 2rem;
+    }
+  }
 }
 
 .decorations {
@@ -149,22 +241,7 @@ h1 {
     margin-top: 4.5rem;
 
     &-btn {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      height: 3.75rem;
-      width: 15rem;
-      font-size: 18px;
-      margin-top: 0.75rem;
-      background-color: $main-blue;
-      color: white;
-      border-radius: 40px;
-      cursor: pointer;
-      transition: 0.3s;
-
-      &:hover {
-        opacity: 0.8;
-      }
+      @extend .button-blue;
     }
   }
 }
@@ -179,7 +256,7 @@ h1 {
   background-color: $main-blue;
 
   &__plug {
-    width: 4.5rem;
+    width: 6.5rem;
   }
 
   &__form {
@@ -221,6 +298,29 @@ h1 {
       }
     }
   }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: white;
+    font-size: 1.25rem;
+
+    &-text {
+    }
+
+    &-arrow {
+      transform: rotate(90deg);
+      transition: 0.4s;
+    }
+
+    &:hover {
+      & .lowpart__link-arrow {
+        transform: rotate(270deg);
+      }
+    }
+  }
 }
 
 .email {
@@ -230,5 +330,11 @@ h1 {
   &-invalid {
     background-color: rgb(255, 159, 159);
   }
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s;
 }
 </style>
