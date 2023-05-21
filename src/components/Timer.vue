@@ -2,7 +2,7 @@
 import { reactive } from "vue";
 
 const MEASUREMENTS = ["Days", "Hours", "Minutes", "Seconds"];
-const DEADLINE = new Date("2023-05-31T00:00:00");
+const DEADLINE = new Date("2023-05-22T17:59:00");
 const remainTime = reactive({
   days: null,
   hours: null,

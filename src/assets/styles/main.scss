@@ -8,6 +8,26 @@
   text-decoration: none;
 }
 
+body {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+h1 {
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: $main-blue;
+  opacity: 0.39;
+}
+
+.page {
+  position: absolute;
+  width: 100%;
+}
+
 .button-blue {
   display: flex;
   align-items: center;

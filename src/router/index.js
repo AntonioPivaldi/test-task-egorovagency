@@ -8,12 +8,18 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        transition: 'up',
+      },
     },
     {
       path: '/events',
       name: 'events',
-      component: EventsView
+      component: EventsView,
+      meta: {
+        transition: 'down',
+      },
     },
   ]
 })

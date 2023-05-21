@@ -46,13 +46,10 @@ async function sendEmail(email) {
 </script>
 
 <template>
-  <main>
-    <section
-      :class="`popup ${isPopupShown ? '' : 'hidden'}`"
-      @click="isPopupShown = false"
-    >
+  <main class="page">
+    <section :class="`popup ${isPopupShown ? '' : 'hidden'}`">
       <div class="popup__window">
-        <div class="popup__window-cross">
+        <div class="popup__window-cross" @click="isPopupShown = false">
           <div class="cross-base"></div>
         </div>
         <div class="popup__window-header">
@@ -90,7 +87,9 @@ async function sendEmail(email) {
         <Timer />
       </div>
       <div class="center__link">
-        <p class="center__link-text">Check our event page when you wait:</p>
+        <p class="center__link-text" @click="isPopupShown = true">
+          Check our event page when you wait:
+        </p>
 
         <a
           href="https://egorovagency.by/#main"
@@ -133,36 +132,32 @@ async function sendEmail(email) {
 
 main {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-}
-
-h1 {
-  font-size: 4.5rem;
-  font-weight: 600;
-  color: $main-blue;
-  opacity: 0.39;
+  height: 100vh;
 }
 
 .popup {
-  visibility: visible;
   display: flex;
-  position: fixed;
+  position: absolute;
   justify-content: center;
   align-items: center;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 10;
   width: 100%;
   min-height: 100%;
   background-color: rgba(22, 44, 78, 0.6);
   transition: 0.3s;
+  visibility: visible;
 
   &__window {
     display: flex;
     flex-direction: column;
+    position: relative;
     height: 23rem;
     width: 20rem;
+    z-index: 250;
     background-color: white;
     border-radius: 2px;
 
@@ -249,8 +244,9 @@ h1 {
 .lowpart {
   display: flex;
   justify-content: space-around;
+  align-self: flex-end;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   width: 100%;
   padding: 1.5rem 0;
   background-color: $main-blue;
@@ -306,9 +302,6 @@ h1 {
     text-decoration: none;
     color: white;
     font-size: 1.25rem;
-
-    &-text {
-    }
 
     &-arrow {
       transform: rotate(90deg);
