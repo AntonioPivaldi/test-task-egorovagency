@@ -182,15 +182,14 @@ main {
   gap: 2px;
 
   &__item {
-    //max-width: 5.25rem;
-    //min-width: 5.25rem;
-    width: 4.75rem;
+    min-width: 5.25rem;
+    width: 5.25rem;
     height: 100%;
     flex-grow: 1;
     cursor: pointer;
     background-size: cover;
     background-position: center;
-    transition: all 1s linear;
+    transition: 1s linear;
     overflow: hidden;
 
     &_wrapper {
@@ -199,7 +198,6 @@ main {
     }
 
     &_title {
-      //max-width: 5.25rem;
       min-width: 5.25rem;
       height: 43rem;
       background: linear-gradient(#162c4e9f, $main-blue 80%);
@@ -207,7 +205,6 @@ main {
 
       &-active {
         @extend .collapse__item_title;
-        //width: 100%;
         background-color: $main-blue;
         border-right: 2px solid white;
       }
@@ -237,7 +234,6 @@ main {
     }
 
     &_info {
-      //position: relative;
       background-color: rgba(0, 0, 0, 0.678);
       backdrop-filter: blur(15px);
     }
@@ -263,9 +259,8 @@ main {
 }
 
 .active {
-  max-width: 65%;
-  //width: 100rem;
-  flex-grow: 100;
+  width: 100%;
+  flex-grow: 10;
   cursor: default;
 }
 </style>
