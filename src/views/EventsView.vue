@@ -62,7 +62,7 @@ let activeElement = ref(0);
     <div class="wrapper">
       <section class="header">
         <div class="header__plug"></div>
-        <h1>ALL EVENTS</h1>
+        <div class="header__text fade-in-down"><h1>ALL EVENTS</h1></div>
         <div class="header__home-link">
           <router-link class="header__link" to="/">
             <button class="header__button">
@@ -129,6 +129,14 @@ main {
 
 .wrapper {
   margin: 5rem 2rem 0;
+
+  @include breakpoint(m) {
+    margin: 2rem 2rem 0;
+  }
+
+  @include breakpoint(xs) {
+    margin: 2rem 1rem 0;
+  }
 }
 
 .header {
@@ -136,8 +144,27 @@ main {
   justify-content: space-around;
   width: 100%;
 
+  @include breakpoint(m) {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
   &__plug {
     width: 6.5rem;
+
+    @include breakpoint(l) {
+      width: 8rem;
+    }
+
+    @include breakpoint(m) {
+      display: none;
+    }
+  }
+
+  &__text {
+    opacity: 0;
   }
 
   & h1 {
@@ -157,6 +184,13 @@ main {
     width: 10rem;
     margin: 0 0 0 2rem;
     height: 3rem;
+
+    @include breakpoint(m) {
+      width: 7rem;
+      height: 2.5rem;
+      gap: 0.5rem;
+      margin: 0;
+    }
   }
 
   &__link {
@@ -186,10 +220,12 @@ main {
   width: 100%;
   height: 43rem;
   gap: 2px;
+  margin-top: 1.5rem;
 
   @include breakpoint(xl) {
     flex-direction: column;
     height: 100%;
+    margin-top: 1.25rem;
   }
 
   &__item {
@@ -210,8 +246,6 @@ main {
 
     @include breakpoint(xl) {
       width: 100%;
-      min-height: 5.25rem;
-      height: 5.25rem;
     }
 
     &_wrapper {
@@ -221,8 +255,7 @@ main {
       @include breakpoint(xl) {
         display: flex;
         flex-direction: column-reverse;
-        min-height: 5.25rem;
-        height: 5.25rem;
+        max-height: 5.25rem;
         flex-grow: 1;
         transition: 1s linear;
       }
@@ -247,7 +280,7 @@ main {
         min-height: 5.25rem;
         height: 5.25rem;
         min-width: 100%;
-        padding-left: 2.5rem;
+        background: linear-gradient(270deg, #0b1627b2, $main-blue 95%);
       }
 
       &-active {
@@ -256,6 +289,7 @@ main {
         border-right: 2px solid white;
 
         @include breakpoint(xl) {
+          border-top: 2.5px solid white;
         }
       }
     }
@@ -279,6 +313,10 @@ main {
         height: unset;
         font-size: 1.5rem;
       }
+
+      @include breakpoint(xs) {
+        font-size: 18px;
+      }
     }
 
     &_number {
@@ -294,6 +332,11 @@ main {
         height: unset;
         font-size: 2rem;
         font-weight: 500;
+        margin-left: 2.5rem;
+      }
+
+      @include breakpoint(xs) {
+        font-size: 1.5rem;
       }
     }
 
@@ -308,9 +351,10 @@ main {
       @include breakpoint(xl) {
         display: flex;
         flex-direction: row-reverse;
+        justify-content: space-between;
         width: 100%;
-        height: 10rem;
-        margin-top: 20rem;
+        height: 12rem;
+        margin-top: 28rem;
       }
     }
 
@@ -319,17 +363,28 @@ main {
       height: 29rem;
       overflow: hidden;
 
+      @include breakpoint(xl) {
+        color: rgba(255, 255, 255, 0.1);
+      }
+
       &_number {
         position: relative;
         top: -4.5rem;
         left: -6.5rem;
         font-size: 23.75rem;
         font-weight: 600;
+        user-select: none;
 
         @include breakpoint(xxl) {
           top: -4rem;
           left: -5.5rem;
           font-size: 20rem;
+        }
+
+        @include breakpoint(xl) {
+          top: -1.5rem;
+          left: 2rem;
+          font-size: 9.5rem;
         }
       }
     }
@@ -337,6 +392,10 @@ main {
     &_low {
       color: white;
       margin-left: 2rem;
+
+      @include breakpoint(xl) {
+        margin: 1.5rem 0 0 2.5rem;
+      }
     }
 
     &_text {
@@ -347,16 +406,27 @@ main {
       & h3 {
         font-size: 1.5rem;
         font-weight: 600;
+        cursor: text;
+
+        @include breakpoint(xs) {
+          font-size: 1rem;
+        }
       }
 
       & p {
         font-size: 18px;
+        cursor: text;
+
+        @include breakpoint(xs) {
+          font-size: 14px;
+        }
       }
     }
 
     &_btn {
       margin-top: 1.5rem;
       width: 100%;
+      user-select: none;
     }
 
     &_link {
@@ -383,7 +453,7 @@ main {
         content: "";
         position: absolute;
         z-index: -1;
-        width: 0.25rem;
+        width: 6px;
         height: 100%;
         top: 0;
         left: 0;
@@ -411,9 +481,7 @@ main {
     height: 100%;
 
     & .collapse__item_wrapper {
-      height: 100%;
-      flex-grow: 10;
-      transition: 1s linear;
+      max-height: 60rem;
     }
   }
 }

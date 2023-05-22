@@ -14,6 +14,15 @@ let isSuccess = ref(false);
 let isPopupShown = ref(false);
 let isEmailValid = false;
 
+window.onload = () => {
+  console.log(
+    "Ye, I know, events collapse panel in vertical mode works kinda weird, but I did my best."
+  );
+  console.log(
+    "Link to a github repo of this project: https://github.com/AntonioPivaldi/test-task-egorovagency/tree/dev"
+  );
+};
+
 function validateEmail(email) {
   if (!!email.match(REGEXP)) {
     inputClass.value = "email-valid";
@@ -68,28 +77,26 @@ async function sendEmail(email) {
       </div>
     </section>
     <section class="decorations">
-      <div class="decorations__left">
+      <div class="decorations__left fade-in-left">
         <img src="../assets/img/deco-left.png" alt="decoration" />
       </div>
-      <div class="decorations__right">
+      <div class="decorations__right fade-in-right">
         <img src="../assets/img/deco-right.png" alt="decoration" />
       </div>
     </section>
     <section class="center">
-      <div class="center__logo">
+      <div class="center__logo fade-in-down">
         <a href="/"><img src="../assets/img/logo.png" alt="Logo" /></a>
       </div>
-      <div class="center__text">
+      <div class="center__text fade-in-down">
         <h1>UNDER CONSTRUCTION</h1>
         <p>We're making lots of improvements and will be back soon</p>
       </div>
-      <div class="center__timer">
+      <div class="center__timer fade-in-down">
         <Timer />
       </div>
-      <div class="center__link">
-        <p class="center__link-text" @click="isPopupShown = true">
-          Check our event page when you wait:
-        </p>
+      <div class="center__link fade-in-down">
+        <p class="center__link-text">Check our event page when you wait:</p>
 
         <a
           href="https://egorovagency.by/#main"
@@ -101,7 +108,7 @@ async function sendEmail(email) {
         </a>
       </div>
     </section>
-    <section class="lowpart">
+    <section class="lowpart fade-in-down">
       <div class="lowpart__plug"></div>
       <form
         :class="`lowpart__form ${inputClass}`"
@@ -119,7 +126,7 @@ async function sendEmail(email) {
           <div class="arrow-base"></div>
         </button>
       </form>
-      <router-link class="lowpart__link" to="/events">
+      <router-link class="lowpart__link text-underscore" to="/events">
         <p class="lowpart__link-text">Other events</p>
         <div class="arrow-base lowpart__link-arrow"></div>
       </router-link>
@@ -202,9 +209,29 @@ main {
 
   &__left img {
     width: 17rem;
+
+    @include breakpoint(m) {
+      position: absolute;
+      top: -1rem;
+      width: 14rem;
+    }
+
+    @include breakpoint(xs) {
+      top: -2rem;
+      width: 12rem;
+    }
   }
   &__right img {
     width: 12rem;
+
+    @include breakpoint(m) {
+      position: relative;
+      width: 10rem;
+    }
+
+    @include breakpoint(xs) {
+      width: 8rem;
+    }
   }
 }
 
@@ -214,18 +241,30 @@ main {
   align-items: center;
   margin-top: 7rem;
 
+  &__logo {
+    opacity: 0;
+  }
+
   &__text {
     text-align: center;
     margin-top: 6rem;
+    opacity: 0;
+    animation-delay: 0.2s;
 
     & p {
       margin-top: 0.5rem;
       font-size: 18px;
+
+      @include breakpoint(m) {
+        font-size: 1rem;
+      }
     }
   }
 
   &__timer {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
+    opacity: 0;
+    animation-delay: 0.4s;
   }
 
   &__link {
@@ -234,6 +273,13 @@ main {
     align-items: center;
     font-size: 18px;
     margin-top: 4.5rem;
+    opacity: 0;
+    animation-delay: 0.6s;
+
+    @include breakpoint(m) {
+      font-size: 1rem;
+      margin-top: 2.5rem;
+    }
 
     &-btn {
       @extend .button-blue;
@@ -250,9 +296,22 @@ main {
   width: 100%;
   padding: 1.5rem 0;
   background-color: $main-blue;
+  opacity: 0;
+  animation-delay: 0.8s;
+
+  @include breakpoint(m) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+  }
 
   &__plug {
     width: 6.5rem;
+
+    @include breakpoint(m) {
+      display: none;
+    }
   }
 
   &__form {

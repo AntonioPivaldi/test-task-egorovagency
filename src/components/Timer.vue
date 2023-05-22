@@ -1,14 +1,21 @@
 <script setup>
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 
 const MEASUREMENTS = ["Days", "Hours", "Minutes", "Seconds"];
-const DEADLINE = new Date("2023-05-22T17:10:00");
+const MEASUREMENTS_MOBILE = ["DD", "HH", "MM", "SS"];
+const DEADLINE = new Date("2023-05-31T00:00:00");
 const remainTime = reactive({
   days: null,
   hours: null,
   minutes: null,
   seconds: null,
 });
+
+let currentWidth = ref(window.innerWidth);
+
+window.onresize = () => {
+  currentWidth.value = window.innerWidth;
+};
 
 function getRemainTime() {
   let now = new Date();
@@ -43,8 +50,11 @@ let timer = setInterval(() => {
           >{{ remainTime[val.toLowerCase()] }}
         </div>
 
-        <div class="timer__measure">
+        <div v-if="currentWidth > 768" class="timer__measure">
           {{ MEASUREMENTS[index] }}
+        </div>
+        <div v-else class="timer__measure">
+          {{ MEASUREMENTS_MOBILE[index] }}
         </div>
       </div>
       <span v-if="index < 3" class="timer__count">:</span>
@@ -70,6 +80,10 @@ let timer = setInterval(() => {
   &__numbers {
     display: flex;
     font-size: 4.5rem;
+
+    @include breakpoint(m) {
+      font-size: 2.5rem;
+    }
   }
 
   &__measure {
@@ -83,6 +97,11 @@ let timer = setInterval(() => {
     background: url("../assets/img/timer-back.png");
     background-repeat: round;
     user-select: none;
+
+    @include breakpoint(m) {
+      font-size: 12px;
+      width: 4rem;
+    }
   }
 }
 </style>

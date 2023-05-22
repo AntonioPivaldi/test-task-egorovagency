@@ -21,6 +21,11 @@ h1 {
   font-weight: 600;
   color: $main-blue;
   opacity: 0.39;
+
+  @include breakpoint(xl) {
+    font-weight: 700;
+    font-size: 2.25rem;
+  }
 }
 
 .page {
@@ -90,5 +95,97 @@ h1 {
   &::after {
     @extend .cross-base, ::before;
     transform: rotate(-45deg);
+  }
+}
+
+.text-underscore {
+  position: relative;
+
+  & p::after {
+    position: absolute;
+    content: '';
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0.5rem;
+    height: 2px;
+    width: 0;
+    left: 50%;
+    background-color: rgba(255, 255, 255, 0.103);
+    transition: 0.3s ease;
+
+    @include breakpoint(m) {
+      bottom: -0.5rem;
+    }
+  }
+
+  &:hover p::after {
+    width: 100%;
+    left: 0;
+    background-color: white;
+  }
+}
+
+.fade-in-down {
+  animation: fadeInDown 1.5s;
+  animation-fill-mode: forwards;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 2s;
+  animation-fill-mode: forwards;
+}
+
+.fade-in-right {
+  animation: fadeInRight 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    transform: translate(-3rem, -2rem);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translate(-3rem, -2rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    transform: translate(3rem, -2rem);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translate(3rem, -2rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0);
+    opacity: 1;
   }
 }
