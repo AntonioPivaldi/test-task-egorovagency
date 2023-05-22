@@ -80,6 +80,7 @@ let timer = setInterval(() => {
   &__numbers {
     display: flex;
     font-size: 4.5rem;
+    font-family: "Poppins-Bold";
 
     @include breakpoint(m) {
       font-size: 2.5rem;

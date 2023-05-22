@@ -141,7 +141,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .popup {
@@ -291,13 +292,14 @@ main {
   display: flex;
   justify-content: space-around;
   align-self: flex-end;
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   padding: 1.5rem 0;
   background-color: $main-blue;
   opacity: 0;
   animation-delay: 0.8s;
+  margin-top: 4rem;
 
   @include breakpoint(m) {
     flex-direction: column;

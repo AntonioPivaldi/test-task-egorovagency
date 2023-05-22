@@ -1,5 +1,15 @@
 @import './variables.scss';
 
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-Bold';
+  src: url('../fonts/Poppins-SemiBold.ttf');
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -10,6 +20,7 @@
 
 body {
   scrollbar-width: none;
+  font-family: 'Poppins';
 
   &::-webkit-scrollbar {
     display: none;
@@ -21,6 +32,7 @@ h1 {
   font-weight: 600;
   color: $main-blue;
   opacity: 0.39;
+  font-family: 'Poppins-Bold';
 
   @include breakpoint(xl) {
     font-weight: 700;
