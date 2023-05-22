@@ -102,8 +102,14 @@ let activeElement = ref(0);
                   <h3>{{ event.name }}</h3>
                   <p>{{ event.date }}</p>
                 </div>
-                <div class="collapse__item_link">
-                  <a :href="event.link" target="_blank"> More information </a>
+                <div class="collapse__item_btn">
+                  <a
+                    class="collapse__item_link"
+                    :href="event.link"
+                    target="_blank"
+                  >
+                    More information
+                  </a>
                 </div>
               </div>
             </div>
@@ -181,6 +187,11 @@ main {
   height: 43rem;
   gap: 2px;
 
+  @include breakpoint(xl) {
+    flex-direction: column;
+    height: 100%;
+  }
+
   &__item {
     min-width: 5.25rem;
     width: 5.25rem;
@@ -192,9 +203,29 @@ main {
     transition: 1s linear;
     overflow: hidden;
 
+    @include breakpoint(xxl) {
+      min-width: 4rem;
+      width: 4rem;
+    }
+
+    @include breakpoint(xl) {
+      width: 100%;
+      min-height: 5.25rem;
+      height: 5.25rem;
+    }
+
     &_wrapper {
       display: flex;
       overflow: hidden;
+
+      @include breakpoint(xl) {
+        display: flex;
+        flex-direction: column-reverse;
+        min-height: 5.25rem;
+        height: 5.25rem;
+        flex-grow: 1;
+        transition: 1s linear;
+      }
     }
 
     &_title {
@@ -203,10 +234,29 @@ main {
       background: linear-gradient(#162c4e9f, $main-blue 80%);
       transition: 1s;
 
+      @include breakpoint(xxl) {
+        min-width: 4rem;
+      }
+
+      @include breakpoint(xl) {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+        min-height: 5.25rem;
+        height: 5.25rem;
+        min-width: 100%;
+        padding-left: 2.5rem;
+      }
+
       &-active {
         @extend .collapse__item_title;
         background-color: $main-blue;
         border-right: 2px solid white;
+
+        @include breakpoint(xl) {
+        }
       }
     }
 
@@ -221,6 +271,14 @@ main {
       z-index: 100;
       font-weight: 600;
       user-select: none;
+
+      @include breakpoint(xl) {
+        position: relative;
+        writing-mode: unset;
+        transform: none;
+        height: unset;
+        font-size: 1.5rem;
+      }
     }
 
     &_number {
@@ -231,11 +289,29 @@ main {
       margin-left: 0.75rem;
       writing-mode: unset;
       transform: rotate(0);
+
+      @include breakpoint(xl) {
+        height: unset;
+        font-size: 2rem;
+        font-weight: 500;
+      }
     }
 
     &_info {
       background-color: rgba(0, 0, 0, 0.678);
       backdrop-filter: blur(15px);
+
+      @include breakpoint(xxl) {
+        width: 15rem;
+      }
+
+      @include breakpoint(xl) {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+        height: 10rem;
+        margin-top: 20rem;
+      }
     }
 
     &_up {
@@ -249,11 +325,79 @@ main {
         left: -6.5rem;
         font-size: 23.75rem;
         font-weight: 600;
+
+        @include breakpoint(xxl) {
+          top: -4rem;
+          left: -5.5rem;
+          font-size: 20rem;
+        }
       }
     }
 
     &_low {
       color: white;
+      margin-left: 2rem;
+    }
+
+    &_text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      & h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      & p {
+        font-size: 18px;
+      }
+    }
+
+    &_btn {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+
+    &_link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 20;
+      width: 16rem;
+      height: 4rem;
+      border: 1px solid white;
+      cursor: pointer;
+      color: white;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(1, 0, 0, 1);
+
+      @include breakpoint(xxl) {
+        width: 10rem;
+        height: 3rem;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        width: 0.25rem;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: white;
+        transition: all 0.4s cubic-bezier(1, 0, 0, 1);
+      }
+
+      &:hover {
+        color: black;
+
+        &::after {
+          width: 100%;
+        }
+      }
     }
   }
 }
@@ -262,5 +406,15 @@ main {
   width: 100%;
   flex-grow: 10;
   cursor: default;
+
+  @include breakpoint(xl) {
+    height: 100%;
+
+    & .collapse__item_wrapper {
+      height: 100%;
+      flex-grow: 10;
+      transition: 1s linear;
+    }
+  }
 }
 </style>
