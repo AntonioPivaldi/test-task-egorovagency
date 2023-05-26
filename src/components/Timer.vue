@@ -85,6 +85,10 @@ let timer = setInterval(() => {
     @include breakpoint(m) {
       font-size: 2.5rem;
     }
+
+    @include breakpoint(xxs) {
+      font-size: 1.5rem;
+    }
   }
 
   &__measure {
@@ -102,6 +106,11 @@ let timer = setInterval(() => {
     @include breakpoint(m) {
       font-size: 12px;
       width: 4rem;
+    }
+
+    @include breakpoint(xxs) {
+      height: 2.5rem;
+      width: 3rem;
     }
   }
 }

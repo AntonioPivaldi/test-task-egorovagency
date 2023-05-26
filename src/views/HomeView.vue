@@ -147,7 +147,7 @@ main {
 
 .popup {
   display: flex;
-  position: absolute;
+  position: fixed;
   justify-content: center;
   align-items: center;
   top: 0;
@@ -168,6 +168,10 @@ main {
     z-index: 250;
     background-color: white;
     border-radius: 2px;
+
+    @include breakpoint(xs) {
+      height: 26rem;
+    }
 
     &-cross {
       display: flex;
@@ -327,11 +331,20 @@ main {
     border: solid $main-blue 3px;
     border-radius: 30px;
 
+    @include breakpoint(xxs) {
+      width: 14rem;
+    }
+
     & input {
       padding-left: 0.5rem;
       font-size: 18px;
       width: 18rem;
       outline: none;
+
+      @include breakpoint(xxs) {
+        font-size: 12px;
+        width: 11rem;
+      }
 
       &:invalid {
         background-color: rgba(255, 0, 0, 0.205);

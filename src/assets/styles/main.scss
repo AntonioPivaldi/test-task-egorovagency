@@ -38,6 +38,10 @@ h1 {
     font-weight: 700;
     font-size: 2.25rem;
   }
+
+  @include breakpoint(xxs) {
+    font-size: 1.75rem;
+  }
 }
 
 .page {
